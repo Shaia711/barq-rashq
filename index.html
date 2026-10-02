@@ -1,26 +1,92 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>برق رشق - اسرع خدمات</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برق رشق - تسجيل دخول</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@800&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#000;color:#fff;font-family:tahoma}
-header{background:#111;padding:25px;text-align:center;border-bottom:2px solid #ffea00}
-h1{color:#ffea00;margin:0}
-.card{background:#111;margin:15px;padding:20px;border-radius:15px;border:1px solid #222;text-align:center}
-.btn{background:#ffea00;color:#000;padding:12px 25px;border-radius:10px;text-decoration:none;font-weight:bold;display:inline-block;margin-top:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
+body{background:#121212;color:#fff}
+.page{display:none;padding:20px}
+.page.active{display:block}
+input{width:100%;background:#1e1e1e;border:1px solid #2a2a2a;color:#fff;padding:14px;border-radius:12px;margin:10px 0;font-size:15px}
+.btn{width:100%;background:#F3BA2F;color:#000;padding:14px;border-radius:12px;font-weight:800;font-size:16px;border:none;margin-top:12px;cursor:pointer}
+.card{background:#1e1e1e;margin:10px 0;border-radius:16px;padding:14px;border:1px solid #2a2a2a}
+.cart{background:#2a2a1a;border:1px solid #3a3a2a;padding:5px 14px;border-radius:20px;color:#F3BA2F;font-weight:800;cursor:pointer;display:inline-block;margin-top:8px}
+.top{background:#1e1e1e;padding:14px;text-align:center;border-bottom:1px solid #2a2a2a}
 </style>
 </head>
 <body>
-<header>
-<h1>⚡ برق رشق</h1>
-<p>أسرع خدمات تزويد المتابعين</p>
-<a class="btn" href="login.html">تسجيل الدخول</a>
-<a class="btn" href="register.html">إنشاء حساب</a>
-</header>
-<div class="card"><h3>📱 تيليجرام 1000 مميز</h3><p>30 ريال - تسليم فوري</p><a class="btn" href="order.html?s=تيليجرام 1000">اطلب الآن</a></div>
-<div class="card"><h3>📱 تيليجرام 5000</h3><p>120 ريال</p><a class="btn" href="order.html?s=تيليجرام 5000">اطلب الآن</a></div>
-<div class="card"><h3>🎵 تيك توك 1000 متابع</h3><p>50 ريال</p><a class="btn" href="order.html?s=تيك توك">اطلب الآن</a></div>
+
+<!-- صفحة 1: انشاء حساب -->
+<div id="auth" class="page active">
+<div class="top"><b>برق رشق - @e_i_e711</b></div>
+<div style="padding:30px 20px">
+<h2 style="text-align:center;margin-bottom:20px">إنشاء حساب جديد</h2>
+<input id="u" placeholder="اسم المستخدم">
+<input id="p" type="password" placeholder="كلمة المرور">
+<input id="ph" placeholder="رقم الواتساب (اختياري)">
+<button class="btn" onclick="signup()">إنشاء حساب ودخول المتجر 🚀</button>
+<p style="text-align:center;margin-top:16px;color:#777;font-size:13px">عندك حساب؟ <span style="color:#F3BA2F;cursor:pointer" onclick="login()">سجل دخول</span></p>
+</div>
+</div>
+
+<!-- صفحة 2: المتجر -->
+<div id="shop" class="page">
+<div class="top" style="display:flex;justify-content:space-between"><span>برق رشق</span><span id="usernameShow"></span></div>
+
+<h3 style="padding:18px 16px 0">⭐ اعضاء تيليجرام مميزين</h3>
+<p style="padding:0 16px;color:#777;font-size:12px">السعر لـ 1000</p>
+
+<div class="card"><b>مميز بدون نزول | 7 ايام 🔥</b><br><div class="cart" onclick="order('مميز 7 ايام - $1.7')">$1.7 🛒</div></div>
+<div class="card"><b>مميز بدون نزول | 15 يوم</b><br><div class="cart" onclick="order('مميز 15 يوم - $4.4')">$4.4 🛒</div></div>
+<div class="card"><b>مميز بدون نزول | 30 يوم</b><br><div class="cart" onclick="order('مميز 30 يوم - $7.4')">$7.4 🛒</div></div>
+
+<h3 style="padding:18px 16px 0">👤 اعضاء عادي</h3>
+<p style="padding:0 16px;color:#777;font-size:12px">السعر لـ 1000</p>
+
+<div class="card"><b>عادي - ضمان 30 يوما</b><br><div class="cart" onclick="order('عادي 30 يوم - $0.8')">$0.8 🛒</div></div>
+<div class="card"><b>عادي - ضمان 20 يوما</b><br><div class="cart" onclick="order('عادي 20 يوم - $0.5')">$0.5 🛒</div></div>
+</div>
+
+<script>
+let users=JSON.parse(localStorage.getItem('barq_users')||'{}');
+let current=localStorage.getItem('barq_current');
+
+if(current){
+ showShop(current);
+}
+
+function signup(){
+ let user=document.getElementById('u').value;
+ let pass=document.getElementById('p').value;
+ if(!user||!pass){alert('اكتب اسم المستخدم وكلمة المرور');return}
+ users[user]=pass;
+ localStorage.setItem('barq_users',JSON.stringify(users));
+ localStorage.setItem('barq_current',user);
+ showShop(user);
+}
+
+function login(){
+ let user=prompt('اسم المستخدم:');
+ let pass=prompt('كلمة المرور:');
+ if(users[user]==pass){
+   localStorage.setItem('barq_current',user);
+   showShop(user);
+ }else{alert('خطأ في البيانات')}
+}
+
+function showShop(user){
+ document.getElementById('auth').classList.remove('active');
+ document.getElementById('shop').classList.add('active');
+ document.getElementById('usernameShow').innerText='👤 '+user;
+}
+
+function order(pkg){
+ let user=localStorage.getItem('barq_current');
+ let msg=`طلب جديد من برق رشق%0A%0A👤 المستخدم: ${user}%0A📦 الباقة: ${pkg}%0A%0A🔗 رابط قناتي: `;
+ window.open(`https://t.me/e_i_e711?text=${msg}`,'_blank');
+}
+</script>
 </body>
 </html>
