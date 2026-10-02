@@ -1,131 +1,23 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Follow | دارك فولو</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHAIA - متجر فاخر</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Tajawal',sans-serif}
-body{background:#121212;color:#fff}
-.top{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;background:#121212;border-bottom:1px solid #222}
-.live{margin:10px auto;background:#1a1a1a;border-radius:20px;padding:4px 12px;display:flex;gap:6px;width:fit-content;font-size:12px}
-.dot{width:8px;height:8px;background:#22c55e;border-radius:50%}
-.card{background:#1e1e1e;margin:16px;border-radius:20px;padding:16px}
-input{background:#2a2a2a;border:1px solid #333;width:100%;padding:14px;border-radius:14px;color:#fff;margin:8px 0;font-size:14px}
-.badge{display:inline-block;background:#2a2a2a;padding:6px 14px;border-radius:20px;font-size:12px;color:#F3BA2F;margin:4px}
-.price-row{display:flex;justify-content:space-between;margin:14px 0}
-.btn{width:100%;background:#F3BA2F;color:#000;padding:16px;border-radius:30px;font-weight:800;font-size:18px;border:none;cursor:pointer}
-.info{background:#1a1a1a;margin:16px;border-radius:20px;padding:16px;line-height:2;font-size:13px;color:#ccc}
-.service-id{display:flex;justify-content:space-between;align-items:center;margin-top:10px;color:#777;font-size:12px}
-.hide{display:none}
+body{margin:0;font-family:sans-serif;background:#0a0a0a;color:#fff;text-align:center}
+header{padding:80px 20px;background:linear-gradient(180deg,#1a1a1a,#0a0a0a)}
+h1{font-size:50px;letter-spacing:5px;margin:0}
+p{color:#aaa;font-size:18px}
+.btn{margin-top:30px;display:inline-block;padding:15px 40px;border:1px solid #c5a059;color:#c5a059;text-decoration:none;letter-spacing:2px}
+.btn:hover{background:#c5a059;color:#000}
 </style>
 </head>
 <body>
-
-<div id="shop">
-<div class="top"><span>✕ Dark Follow | دارك فولو</span><span>▼</span></div>
-<div class="live"><span class="dot"></span> LIVE <span style="color:#ff2d7a">370</span></div>
-
-<div style="padding:0 16px;display:flex;gap:10px">
-<div class="card" style="flex:1;text-align:center" onclick="openOrder('اعضاء تليجرام بدون نزول | 30 يوم','3.7','2038')">
-⭐<br>مميزين 30 يوم<br><b>$3.7</b></div>
-<div class="card" style="flex:1;text-align:center" onclick="openOrder('اعضاء تليجرام عادي | 30 يوم','0.8','2039')">
-👤<br>عادي 30 يوم<br><b>$0.8</b></div>
-</div>
-
-<div class="card" style="text-align:center;color:#777" onclick="openOrder('اعضاء تليجرام بدون نزول | 7 يوم','1.7','2040')">
-⭐ اعضاء مميزين بدون نزول | 7 ايام - $1.7
-</div>
-</div>
-
-<div id="orderPage" class="hide">
-<div class="top"><span onclick="back()" style="cursor:pointer">←</span><span>Dark Follow | دارك فولو</span><span>⋮</span></div>
-<div class="live"><span class="dot"></span> LIVE <span style="color:#ff2d7a" id="liveNum">370</span></div>
-
-<div class="card">
-<h3 id="serviceName">اعضاء تليجرام بدون نزول | 30 يوم</h3>
-
-<label style="color:#777;font-size:12px;margin-top:14px;display:block">مقدار</label>
-<input id="amount" type="number" value="500" oninput="calc()">
-
-<div>
-<span class="badge">الحد الأدنى 500</span>
-<span class="badge">الحد الأقصى 50000</span>
-</div>
-
-<label style="color:#777;font-size:12px;margin-top:14px;display:block">الرابط</label>
-<input id="link" placeholder="رابط دعوة">
-
-<span class="badge">لدي كود خصم</span>
-
-<div class="price-row"><span>الكميه</span><span id="qty">500</span></div>
-<div class="price-row"><span>سعر</span><span><b id="priceShow">$3.7</b> <span style="background:#ff6b6b22;color:#ff6b6b;padding:2px 6px;border-radius:10px;font-size:11px">-1%</span> <s style="color:#555;font-size:12px">$3.8</s></span></div>
-
-<button class="btn" onclick="makeOrder()">إنشاء الطلب</button>
-
-<div class="service-id">
-<span>✈️ معرف الخدمة</span>
-<span style="background:#2a2a2a;padding:4px 10px;border-radius:10px" id="serviceId">2038 ⎙</span>
-</div>
-</div>
-
-<div class="card" style="background:#1a1a1a">
-<div style="display:flex;justify-content:space-around;margin-bottom:12px">
-<span style="background:#2a2a2a;padding:6px 12px;border-radius:20px;font-size:12px">👻 نسبه النزول</span>
-<span style="background:#2a2a2a;padding:6px 12px;border-radius:20px;font-size:12px">✅ ضمان</span>
-<span style="background:#2a2a2a;padding:6px 12px;border-radius:20px;font-size:12px">⭐ حقيقة</span>
-</div>
-<p style="color:#F3BA2F;font-size:13px">⚠️ يرجى قراءة الوصف قبل الطلب</p>
-<p style="margin-top:10px">
-- وقت البداء : 1 - 3 ساعات ⏳<br>
-- السرعه باليوم : 60 الف 🚀<br>
-- الرابط : رابط دعوه فقط ⭕<br>
-- الجوده : حسابات تليجرام مميزه 🔵<br>
-- البلد : من جميع انحاء العالم 🌍<br>
-- الضمان : ضمان 30 ايام في 🛡️<br>
-- النزول : 0% بالميه خلال 30 ايام ✅<br>
-- الخدمه تقبل القنوات والمجموعات -<br>
-- تنويه : قد يختلف وقت البداء اذا كانت الخدمه مشغوله 🔥<br><br>
-- ضمان كامل في حال النزول ✅<br>
-- وفي حال انتهاء اشتراك المميز قبل الوقت المذكور ✅<br><br>
-- لا يوجد ضمان للروابط العامه / الخاصه 📍<br>
-- لكل طلب جديد رابط دعوه كذلك جديد 📍<br>
-- ممنوع استعمال رابط دعوه قديم 📍<br>
-- ممنوع تكرار الطلبات قبل اكتمال طلبك الاول 📍<br>
-- لايوجد ضمان للقنوات الاحتياليه 📍
-</p>
-</div>
-</div>
-
-<script>
-let basePrice=3.7;
-function openOrder(name,price,id){
- document.getElementById('shop').classList.add('hide');
- document.getElementById('orderPage').classList.remove('hide');
- document.getElementById('serviceName').innerText=name;
- document.getElementById('serviceId').innerText=id+' ⎙';
- document.getElementById('priceShow').innerText='$'+price;
- basePrice=parseFloat(price);
- calc();
-}
-function back(){
- document.getElementById('orderPage').classList.add('hide');
- document.getElementById('shop').classList.remove('hide');
-}
-function calc(){
- let q=document.getElementById('amount').value||500;
- document.getElementById('qty').innerText=q;
- let total=(q/1000*basePrice).toFixed(2);
- document.getElementById('priceShow').innerText='$'+total;
-}
-function makeOrder(){
- let link=document.getElementById('link').value;
- let qty=document.getElementById('amount').value;
- if(!link){alert('حط رابط الدعوة');return}
- let msg=`طلب جديد برق رشق%0A%0Aالخدمة: ${document.getElementById('serviceName').innerText}%0Aالكمية: ${qty}%0Aالرابط: ${link}%0Aالسعر: ${document.getElementById('priceShow').innerText}`;
- window.open(`https://t.me/e_i_e711?text=${msg}`,'_blank');
-}
-setInterval(()=>{document.getElementById('liveNum').innerText=Math.floor(360+Math.random()*20)},3000);
-</script>
+<header>
+<h1>SHAIA 711</h1>
+<p>تشكيلة فاخرة - قريباً</p>
+<a class="btn" href="#">دخول المتجر</a>
+</header>
 </body>
 </html>
